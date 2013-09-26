@@ -1,4 +1,4 @@
-
+----sid's try
 Select ObjectKey
 into #TempTable
 from Insurances_PLP_UHCDENTISTS with (nolock) 
