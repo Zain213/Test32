@@ -1,0 +1,74 @@
+
+Select ObjectKey
+into #TempTable
+from Insurances_PLP_UHCDENTISTS with (nolock) 
+where Phones_Full like '% '
+
+Insert Into Error_Table (CarrierName,Object_Key,QA_Comment,Flag)
+(
+select RobotName,ObjectKey,'T_191:Phones_Full','Y'
+from Insurances_PLP_UHCDENTISTS with (nolock)
+where ObjectKey IN
+(
+select ObjectKey from #Temptable 
+)    
+)
+
+Drop table #TempTable
+
+---------------------------------------------------------------------------------------------------------
+~~~~~Not Present
+Insert into Error_Table (CarrierName,Object_Key,QA_Comment,Flag)
+(Select RobotName,ObjectKey, 'T_107:Fax_2','Y'
+From  Insurances_PLP_UHCDENTISTS  with (nolock)
+where 
+(Fax_2 is NOT NULL AND
+Fax_2 != '' AND
+Address_Full  not like '%'+Fax_2+'%'
+ OR
+(Fax_2 = '' OR Fax_2 is null 
+and Address_Full is not null and
+Address_Full like '%[0-9][-/. ][0-9][0-9][0-9][0-9][_][_][_]%[-/. ][0-9][0-9][0-9][0-9]')
+
+
+---------------------------------------------------------------------------------------------------------
+~~~~~Present
+INSERT INTO Error_Table (CarrierName,Object_Key,QA_Comment,Flag)
+(select RobotName,ObjectKey,'T_095:Address_2','Y'
+from Insurances_PLP_UHCDENTISTS with (nolock)
+where Address_2 like '%''''%'
+OR Address_2 like '% apos %')
+))
+
+
+----------------------------------------------------------------------------------------------------------
+~~~~~Not Present
+Insert into Error_Table (CarrierName,Object_Key,QA_Comment,Flag)
+(select RobotName,ObjectKey,'T_086:Fax_2','Y'
+from Insurances_PLP_UHCDENTISTS with (nolock)
+ where 
+(( Fax_2 is not null AND Fax_2 != '') 
+AND
+(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Fax_2,'-',''),'(',''),')',''),'.',''),'/',''),' ','') = '0000000000'
+OR
+ISNUMERIC(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Fax_2,'-',''),'(',''),')',''),'.',''),'/',''),' ','')) <> 1)))
+
+
+
+---------------------------------------------------------------------------------------------------------------
+~~~ some error -valkyrie
+
+Insert Into Error_Table (CarrierName,Object_Key,QA_Comment,Flag)
+(
+select RobotName,ObjectKey,'T_183:Full_Name','Y'
+from Insurances_PLP_UHCDENTISTS with (nolock)
+where
+Replace(Replace(Replace(Replace(Replace(Full_name,'.',''),' V ',''),' V,',''),',',''),' ','') <> Replace(Last_Name,' ','')+Replace (First_Name,' ', '')+ replace (Middle_Name, ' ','')+Replace(Replace(Replace(Title,',',''),'.',''),' ','')
+and (branch = 52 or branch = 77752)
+and First_Name != 'unusual' and First_Name != 'practice'
+
+)
+
+
+----------------------------------------------------------------------------------------------------------------------
+
