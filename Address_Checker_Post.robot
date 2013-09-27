@@ -1,3 +1,4 @@
+<NOT XML>
 <?xml version="1.0" encoding="UTF-8" ?>
 <object class="GenericRobot2" serializationversion="1">
   <prologue>
