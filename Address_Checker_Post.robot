@@ -548,7 +548,7 @@ Address_Full not like '%'+"+Address_Check.text3+"+'%')
                 <property name="text" class="String">"Update Error_Table
 Set Flag='N'
 where CarrierName IN (Select distinct RobotName from "+TableName+") 
-AND QA_Comment IN ('T_071:Address_1','T_072:Address_1','T_073:Address_1','T_074:Address_1','T_075:Address_1','T_076:Address_1','T_077:Address_1','T_078:Address_1','T_079:Address_1','T_080:Address_1','T_081:Address_1','T_082:City','T_083:State','T_084:Zip','T_085:Phone_1','T_086:Fax_1','T_087:Address_1','T_088:Address_2','T_089:Practice_Name','T_090:Address_1','T_095:Address_1','T_095:Address_2','T_097:Practice_Name','T_098:Address_1','T_099:Address_2','T_100:Practice_Name','T_101:Address_1','T_103:Address_2','T_104:Practice_Name','T_105:Phones_Full','T_190:Address_Full','T_106:Phones_Full','T_107:Fax','T_111:City_State_Zip','T_210:Phones_Full','T_112:City','T_113:State','T_114:Zip','Address_2')
+AND QA_Comment IN ('T_071:Address_1','T_072:Address_1','T_073:Address_1','T_074:Address_1','T_075:Address_1','T_076:Address_1','T_077:Address_1','T_078:Address_1','T_079:Address_1','T_080:Address_1','T_081:Address_1','T_082:City','T_083:State','T_084:Zip','T_085:Phone_1','T_086:Fax','T_087:Address_1','T_088:Address_2','T_089:Practice_Name','T_090:Address_1','T_095:Address_1','T_095:Address_2','T_097:Practice_Name','T_098:Address_1','T_099:Address_2','T_100:Practice_Name','T_101:Address_1','T_103:Address_2','T_104:Practice_Name','T_105:Phones_Full','T_190:Address_Full','T_106:Phones_Full','T_107:Fax','T_111:City_State_Zip','T_210:Phones_Full','T_112:City','T_113:State','T_114:Zip','Address_2')
 AND Flag = 'Y'
 "</property>
               </property>
@@ -599,8 +599,8 @@ AND Flag = 'Y'
                       </element>
                       <element class="ConvertUsingList">
                         <property name="mapString" class="String">"Phone_1" = "T_085:Phone_1"
-"Fax_1" = "T_086:Fax_1"
-"Fax_2" = "T_086:Fax_2"</property>
+"Fax_1" = "T_086:Fax"
+"Fax_2" = "T_086:Fax"</property>
                       </element>
                     </property>
                   </property>
@@ -1169,7 +1169,7 @@ Address_Full like '%[0-9][-/. ][0-9][0-9][0-9][0-9][_][_][_]%[-/. ][0-9][0-9][0-
 
 
 Insert into Error_Table (CarrierName,Object_Key,QA_Comment,Flag)
-(Select RobotName,ObjectKey, 'T_107:Fax_1','Y'
+(Select RobotName,ObjectKey, 'T_107:Fax','Y'
 From  "+TableName+"  with (nolock)
 where 
 (Fax_1 is NOT NULL AND
@@ -1184,7 +1184,7 @@ Address_Full like '%[0-9][-/. ][0-9][0-9][0-9][0-9][_][_][_]%[-/. ][0-9][0-9][0-
 
 
 Insert into Error_Table (CarrierName,Object_Key,QA_Comment,Flag)
-(Select RobotName,ObjectKey, 'T_107:Fax_2','Y'
+(Select RobotName,ObjectKey, 'T_107:Fax','Y'
 From  "+TableName+"  with (nolock)
 where 
 (Fax_2 is NOT NULL AND
@@ -1379,7 +1379,7 @@ AND Flag = 'Y'
 "T_104" = "No. of rows that have unwanted tags and words present in Practice_Name:"
 "T_105" = "No. of rows that have unwanted tags and words present in Phones_Full:"
 "T_106" = "No. of rows where Fax_1 or Fax_2 is null or blank even when they are present in Phones_Full:"
-"T_107" = "No. of rows where Phone_1 or Phone_2 or Phone_3 is is null or blank even when they are present in Phones_Full"
+"T_107" = "No. of rows where Fax_1 or Fax_2 or Phone_3 is is null or blank even when they are present in Address_Full"
 "T_111" = "No. of rows where the value of City_State_Zip is incorrect:"
 "T_112" =  "No. of rows where City was incorrectly parsed in City column:"
 "T_113" =  "No. of rows where State was incorrectly parsed in State column:"
@@ -1463,7 +1463,7 @@ AND Flag = 'Y'
 "T_083" = "T_083:State"
 "T_084" = "T_084:Zip"
 "T_085" = "T_085:Phone_1"
-"T_086" = "T_086:Fax_1"
+"T_086" = "T_086:Fax"
 "T_087" = "T_087:Address_1"
 "T_088" = "T_088:Address_2"
 "T_089" = "T_089:Practice_Name"
